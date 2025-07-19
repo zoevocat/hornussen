@@ -11,7 +11,7 @@ export class MqttService {
   connect() {
     if (this.connected) return;
 
-    this.client = mqtt.connect('ws://10.42.0.1:8000\'', {
+    this.client = mqtt.connect('ws://10.42.0.1:8000', {
       username: 'mqttuser',
       password: 'mqttuser',
       connectTimeout: 4000,
