@@ -1,12 +1,178 @@
-.container {
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/feld.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-screen {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/feld.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  justify-content: center;
+  text-align: center;
 }
 
-.form-field {
-  width: 80%;
-  max-width: 600px;
-  margin-bottom: 20px;
+.logo {
+  max-width: 200px;
+  margin-bottom: 30px;
+}
+
+.start-btn {
+  padding: 18px 32px;
+  font-size: 1.2rem;
+  background-color: #B28E67;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.overlay {
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.card h2 {
+  color: black; /* oder einfach: black */
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px 30px;
+  margin: 20px auto;
+  border-radius: 15px;
+  max-width: 400px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+input[type='number'] {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 80px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.send-btn {
+  background-color: #B28E67;
+  border: none;
+  padding: 10px 14px;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.shoot-btn:active:not(:disabled),
+.send-btn:active:not(:disabled),
+.start-btn:active{
+  background-color: #768C76;
+  transform: scale(0.9);
+}
+
+
+.shoot-btn:disabled,
+.send-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.shoot-btn {
+  background-color: #B28E67;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  padding: 16px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.info-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(118, 140, 118, 0.9);
+  padding: 20px 30px;
+  border-radius: 15px;
+  max-width: 400px;
+  margin: 0;
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 200px;
+  background-image: url('../assets/logo.png');
+  background-size: contain;
+  background-position: center;
+}
+
+
+.ball-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.rotating-ball {
+  width: 80px;
+  height: 80px;
+  background-image: url('../assets/nousse.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: rotateBall 2s linear infinite;
+}
+
+@keyframes rotateBall {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
