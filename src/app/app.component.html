@@ -1,33 +1,50 @@
-<div class="container">
-  <h1>Noussenwurfmaschine</h1>
+<!-- Startscreen -->
+<div *ngIf="!istGestartet" class="start-screen">
+  <div class="logo-container"></div>
+  <button (click)="start()" class="start-btn">Spiel starten</button>
+</div>
 
-  <button mat-raised-button color="accent" (click)="connectToMqttBroker()" style="margin-left: 20px;">
-    Mit Mqtt verbinden
-  </button>
+<!-- App-Inhalte -->
+<div *ngIf="istGestartet" class="app-inhalt">
+  <div class="background">
+    <div class="overlay">
+      <div class="logo-container"></div>
+      <div class="card">
+        <h2>Weite einstellen</h2>
+        <div class="input-row">
+          <input
+            type="number"
+            [(ngModel)]="inputWeite"
+            placeholder="0"
+            min="0"
+            max="300"
+            step="5"
+            (input)="validateWeite()"
+            [disabled]="ladeAnimation"
+            [class.invalid]="!isWeiteValid && hasTouched"
+          />
+          <button
+            (click)="weite()"
+            class="send-btn"
+            [disabled]="!isWeiteValid || !hasTouched || ladeAnimation">
+            <span>&#10148;</span>
+          </button>
+        </div>
+        <div *ngIf="!isWeiteValid && hasTouched" class="error-message">
+          Bitte gib eine Zahl zwischen 0 und 300 ein.
+        </div>
+      </div>
+      <button
+        class="shoot-btn"
+        (click)="abschuss()"
+        [disabled]="ladeAnimation || !isWeiteEingestellt">
+        {{ ladeAnimation ? 'Warte ' + countdown + 's' : 'Nousse werfen' }}
+      </button>
+      <div class="ball-container" *ngIf="ladeAnimation">
+        <div class="rotating-ball"></div>
+      </div>
 
-<mat-form-field
-  style="
-    display: block;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
-    padding: 8px;
-  "
->
-  <mat-label>Weite</mat-label>
-  <input
-    matInput
-    placeholder="Gib eine Wurfweite ein"
-    [(ngModel)]="inputWeite"
-    (keyup.enter)="weite()"
-  />
-</mat-form-field>
-
-  <button mat-raised-button color="primary" (click)="weite()">
-    Weite senden
-  </button>
-
-  <button mat-raised-button color="accent" (click)="abschuss()" style="margin-left: 20px;">
-    Abschuss
-  </button>
+      <div *ngIf="meldung" class="info-box">{{ meldung }}</div>
+    </div>
+  </div>
 </div>
