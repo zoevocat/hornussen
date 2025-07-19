@@ -30,8 +30,12 @@ export class AppComponent {
 
   start() {
     this.mqttService.connect();
-    this.istGestartet = true;
-    this.zeigeMeldung("Bereit!");
+    if(this.mqttService.connected) {
+      this.istGestartet = true;
+      this.zeigeMeldung("Bereit!");
+    } else {
+      this.zeigeMeldung("Fehler beim Verbinden mit MQTT! Lade die Seite neu und versuchs nochmal.");
+    }
   }
 
   weite() {
@@ -72,7 +76,7 @@ export class AppComponent {
   zeigeMeldung(msg: string) {
     this.meldung = msg;
     setTimeout(() => {
-      this.meldung = null; // Meldung nach 3 Sekunden ausblenden
-    }, 3000);
+      this.meldung = null; // Meldung nach 5 Sekunden ausblenden
+    }, 5000);
   }
 }

@@ -6,7 +6,7 @@ import mqtt, {MqttClient} from 'mqtt';
 })
 export class MqttService {
   private client!: MqttClient;
-  private connected = false;
+  public connected = false;
 
   connect() {
     if (this.connected) return;
