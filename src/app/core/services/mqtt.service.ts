@@ -6,7 +6,7 @@ import mqtt, {MqttClient} from 'mqtt';
 })
 export class MqttService {
   private client!: MqttClient;
-  public connected = false;
+  private connected = false;
 
   connect() {
     if (this.connected) return;
@@ -26,12 +26,14 @@ export class MqttService {
 
     this.client.on('offline', () => {
       console.warn('MQTT offline');
+      alert("Verbindung zu MQTT unterbrochen. Lade die Seite neu und versuchs nochmal.");
     });
 
     this.client.on('error', (error) => {
       console.error('MQTT-Fehler:', error.message);
       this.client.end();
       this.connected = false;
+      alert(`Es ist ein Fehler mit der Verbindung zu MQTT aufgetreten. Lade die Seite neu und versuchs nochmal. Fehlertext: ${error.message}`);
     });
   }
 

@@ -30,12 +30,8 @@ export class AppComponent {
 
   start() {
     this.mqttService.connect();
-    if(this.mqttService.connected) {
-      this.istGestartet = true;
-      this.zeigeMeldung("Bereit!");
-    } else {
-      this.zeigeMeldung("Fehler beim Verbinden mit MQTT! Lade die Seite neu und versuchs nochmal.");
-    }
+    this.istGestartet = true;
+    this.zeigeMeldung("Bereit!");
   }
 
   weite() {
