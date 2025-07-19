@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import mqtt, {MqttClient} from 'mqtt';
 
 @Injectable({
@@ -6,16 +6,33 @@ import mqtt, {MqttClient} from 'mqtt';
 })
 export class MqttService {
   private client!: MqttClient;
+  private connected = false;
 
   connect() {
-    this.client = mqtt.connect('ws://10.42.0.1:8000', {
+    if (this.connected) return;
+
+    this.client = mqtt.connect('ws://10.42.0.1:8000\'', {
       username: 'mqttuser',
       password: 'mqttuser',
       connectTimeout: 4000,
       clientId: 'app',
-      clean: true
+      clean: true,
+      reconnectPeriod: 0
     });
-    this.client.on('connect', () => console.log(this.client.connected));
+    this.client.on('connect', () => {
+      this.connected = true;
+      console.log('MQTT connected')
+    });
+
+    this.client.on('offline', () => {
+      console.warn('MQTT offline');
+    });
+
+    this.client.on('error', (error) => {
+      console.error('MQTT-Fehler:', error.message);
+      this.client.end();
+      this.connected = false;
+    });
   }
 
   publish(topic: string, message: string) {
